@@ -1,7 +1,7 @@
 {
   "name": "dsh-claim-gate",
   "version": "0.3.0",
-  "description": "Turn-boundary claim gate: 声称「已完成/已落地」但本轮无验证输出时机械拦截；有验证输出时软提示对照验证覆盖 + 任务收尾派独立审计（auditHint 默认开）",
+  "description": "Mechanically stops unfounded \"done\" claims from coding agents — a zero-LLM, pure-regex turn-boundary hook that demands verification evidence before sign-off.",
   "type": "module",
   "main": "lib/index.js",
   "license": "MIT",

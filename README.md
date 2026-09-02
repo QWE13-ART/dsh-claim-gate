@@ -1,6 +1,17 @@
 # dsh-claim-gate
 
-在**回答收尾那一刻**机械检查「已完成」类声明有没有验证支撑。不依赖 agent 自己记得检查。
+[![Version](https://img.shields.io/github/v/tag/QWE13-ART/dsh-claim-gate?label=version&color=blue)](https://github.com/QWE13-ART/dsh-claim-gate)
+[![License: MIT](https://img.shields.io/badge/License-MIT-red.svg)](https://opensource.org/licenses/MIT)
+
+dsh-claim-gate **stops unfounded "done" claims** the moment a coding agent signs off a turn. It mechanically checks the turn's tool evidence — zero LLM, pure regex, nothing for the agent to remember.
+
+- **Claiming without evidence gets steered back to produce it.** Verdicts are structural facts from tool outputs, never the model's self-assessment (models cannot reliably audit their own work).
+- **Rephrasing or relocating the claim does not hide it** — windowed turn tracking survives delayed, out-of-order tool results.
+- **A broken config never blocks a turn** (fail-safe, not fail-closed); enforce mode was enabled only after real-corpus replay showed zero misfires.
+
+[简体中文说明 ↓](#zh)
+
+<a name="zh"></a>
 
 ## 为什么不是写规则
 
