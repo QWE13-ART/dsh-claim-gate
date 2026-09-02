@@ -2,6 +2,10 @@
   "name": "dsh-claim-gate",
   "version": "0.3.0",
   "description": "Mechanically stops unfounded \"done\" claims from coding agents — a zero-LLM, pure-regex turn-boundary hook that demands verification evidence before sign-off.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/QWE13-ART/dsh-claim-gate.git"
+  },
   "type": "module",
   "main": "lib/index.js",
   "license": "MIT",
