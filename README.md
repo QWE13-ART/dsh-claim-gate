@@ -48,10 +48,24 @@
 ## 测试
 
 ```
-node --test (Get-ChildItem test -Filter '*.test.js' | % FullName)   # 55/55（decide 基线 + recall 矩阵 + 真实语料回归）
+node --test (Get-ChildItem test -Filter '*.test.js' | % FullName)   # 60/60（decide 基线 + vacuous + enforce + recall 矩阵 + 真实语料回归）
 node test/replay.mjs                 # 真实会话回放审计
 node test/compare-v03.mjs            # v0.2 vs v0.3 真实语料对照（合入门禁）
-node test/apply-probe.mjs            # apply + steer 行为
+node --test test/enforce.test.js     # apply + steer 行为（enforce 拦截路径）
 ```
 
 ponytail: 声明识别是正则，不做语义判断——语义要调模型，会拖死每一轮；误报率高到不可用时再考虑。
+
+## Changelog
+
+### v0.3.0（2026-09-02）
+
+窗口与取证重写（详见 `docs/v0.3-design.md`，F1–F13 全定案）：
+
+- **窗口 turn 区间制**：按 `data.turn` 归属事件，兼容宿主 tool/result 延迟乱序回流（F9）；无用户消息的回放 = 单轮语义
+- **失败撤销按槽位**：每个调用只撤销自己 push 的证据，内容型 pwsh 失败不再误伤同窗口无关的真验证（F13，独立审计定案）
+- **空跑三层检测**：计数形态行首锚定 + FIFO call/result 配对 + 只判测试运行命令输出（F12，修掉自指误报）
+- **内容型 pwsh 取证**：≥200 字符真实输出提升为证据（F10）；markdown 列表状态行剥离（F11）
+- 测试 60/60（decide 10 + vacuous 8 + enforce 7 + real-corpus 11 + recall 24）
+- 真实语料对照（433 轮）：353 一致 / 2 已知边界（窗口切分拦截，可补证恢复）/ 0 漏抓
+- 审计证据索引 `docs/v0.3-audit-evidence.md`（独立审计 7/7 复跑 + F13 修复闭环）
