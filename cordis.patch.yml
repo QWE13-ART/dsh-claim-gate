@@ -1,0 +1,20 @@
+# dsh-claim-gate bundle patch.
+#
+# 把 claim-gate 插件行注入 profile HOST 组成（宿主层）。宿主层的原因：
+#   - ctx.on('agent/turn-stopping') 在宿主 scope 无 agent 过滤，能拦所有会话的收尾
+#   - 判定逻辑不注册工具、不需要按会话私有化
+#
+# 纯追加，不改动/不禁用任何既有行。
+#
+# enforce: true（2026-08-31 用户指令「开」）。
+# 依据：293 轮真实会话回放（本会话 42 轮元讨论最坏情况 + 另两会话 251 轮），
+# 三层剥离（结构剥离 / 句内证据 / 他方主体）后 unverified = 0，无误报。
+# 反面依据同样是实测：本会话 5 个反幻觉技能触发 0 次，而同期我犯了 6 个
+# 本该被它们拦住的错——observe-only 的观察期不是零代价的。
+# ⚠️ 召回率未知（真阳样本仅 2 条）。误拦时看 ~/.dsh/state/claim-gate.jsonl 定位，
+# 要退回观察模式把下面改成 false 并重启。
+- insert:
+    - id: claim-gate
+      name: 'dsh-claim-gate'
+      config:
+        enforce: true

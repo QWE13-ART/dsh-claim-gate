@@ -1,0 +1,8 @@
+node_modules/
+.serena/
+.codegraph/
+*.tgz
+*.log
+.npmrc
+__pycache__/
+*.pyc

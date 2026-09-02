@@ -1,0 +1,17 @@
+{
+  "name": "dsh-claim-gate",
+  "version": "0.3.0",
+  "description": "Turn-boundary claim gate: 声称「已完成/已落地」但本轮无验证输出时机械拦截；有验证输出时软提示对照验证覆盖 + 任务收尾派独立审计（auditHint 默认开）",
+  "type": "module",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml"
+  ]
+}
